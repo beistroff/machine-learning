@@ -18,6 +18,7 @@ def task4():
     train_data = pd.DataFrame(columns=data.columns)
     test_data = pd.DataFrame(columns=data.columns)
 
+    # Групування даних за категоріями
     for _, group in data.groupby(bins):
         train_sample = group.sample(frac=0.7, random_state=42)  # 70% для тренування
         test_sample = group.drop(train_sample.index)
@@ -26,6 +27,8 @@ def task4():
 
     def train_and_evaluate_model(degree, train_data, test_data):
         poly = PolynomialFeatures(degree=degree)
+
+        # Перетворення незалежної змінної довжини на поліноміальні форми для тренувальних та тестових даних.
         X_train_poly = poly.fit_transform(train_data[['Length']])
         X_test_poly = poly.transform(test_data[['Length']])
         
@@ -33,6 +36,8 @@ def task4():
         model.fit(X_train_poly, train_data['Weight'])
         
         predictions = model.predict(X_test_poly)
+
+        # Обчислення залишкової суми квадратів (RSS)
         rss = np.sum((test_data['Weight'] - predictions) ** 2)
         mse = mean_squared_error(test_data['Weight'], predictions)
         

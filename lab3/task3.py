@@ -17,6 +17,7 @@ def task3():
     kf = KFold(n_splits=5, shuffle=True, random_state=42)
     predictions = np.zeros(len(y))
 
+    # Цикл по блоках крос-валідації. X незалежна змінна
     for train_index, test_index in kf.split(X):
         X_train, X_test = X.iloc[train_index], X.iloc[test_index]
         y_train, y_test = y.iloc[train_index], y.iloc[test_index]

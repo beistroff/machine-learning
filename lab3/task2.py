@@ -7,10 +7,10 @@ import colors
 data = pd.read_csv('data/REGLAB2.txt', delimiter='\t')
 
 def task2():
-    # Split the data into training and testing sets
+    # 70% навчальні, 30% тестові
     train_data, test_data = train_test_split(data, test_size=0.3, random_state=42)
 
-    # Function to calculate RSS and MSE
+    # Функція для розрахунку RSS і MSE
     def calculate_rss_and_mse(model, test_data, dependent_var):
         predictions = model.predict(test_data)
         true_values = test_data[dependent_var]
@@ -22,7 +22,7 @@ def task2():
     models = {}
     results = []
 
-    # Adding constant term for intercept in regression models
+    # Додавання постійного члена для перехоплення в регресійних моделях
     train_data = sm.add_constant(train_data)
     test_data = sm.add_constant(test_data)
 
@@ -45,26 +45,23 @@ def task2():
         'y ~ x1 + x2 + x3 + x4'
     ]
 
-    # Loop to fit models and calculate RSS and MSE
+    # Цикл для підбору моделей і обчислення RSS і MSE
     for formula in formulas:
         model = sm.OLS.from_formula(formula, data=train_data).fit()
         rss, mse = calculate_rss_and_mse(model, test_data, 'y')
         models[formula] = model
         results.append({'Model': formula, 'RSS': rss, 'MSE': mse})
 
-    # Create DataFrame from results
     results_df = pd.DataFrame(results)
 
-    # Print RSS and MSE for each model
     print(f"{colors.BLUE}Залишкова сума квадратів і середньо-квадратична похибка  для кожної моделі:\n{colors.RESET}")
     print(results_df)
 
-    # Find the best model based on the lowest RSS
+    # Знаходимо найкращу модель на основі найнижчого RSS
     best_model_row = results_df.loc[results_df['RSS'].idxmin()]
     best_model_name = best_model_row['Model']
     best_model = models[best_model_name]
 
-    # Print the best model and its summary
     print(f"{colors.GREEN}\nНайкраща модель: {colors.RESET}{best_model_name}")
     print(f"{colors.YELLOW}\nПідсумковий звіт моделі:\n{colors.RESET}")
     print(best_model.summary())
