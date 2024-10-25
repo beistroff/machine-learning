@@ -12,7 +12,6 @@ def task2():
     X_train = train_data[['X1', 'X2']].values
     y_train = train_data['Colors'].values
 
-    # Завантаження тестової вибірки
     test_data = pd.read_csv('data/svmdata2test.txt', sep='\t')
     X_test = test_data[['X1', 'X2']].values
     y_test = test_data['Colors'].values

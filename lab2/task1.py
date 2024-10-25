@@ -26,7 +26,7 @@ y_pred = nb_classifier.predict(X_test)
 
 # Порівняння прогнозованих результатів з фактичними
 conf_matrix = confusion_matrix(y_test, y_pred)
-accuracy = accuracy_score(y_test, y_pred)
+accuracy = round(accuracy_score(y_test, y_pred), 4)
 report = classification_report(y_test, y_pred)
 
 # Виведення результатів

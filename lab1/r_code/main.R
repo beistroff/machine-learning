@@ -7,12 +7,12 @@ library("dplyr")
 d<-iris
 describe(d)
 
-summary(d)
-head(d)
+#summary(d)
+#head(d)
 
-ggplot(iris, aes(x=Petal.Length, y=Petal.Width, color=Species)) +
-  geom_point() +
-  labs(title="Розподіл довжини та ширини пелюсток для кожного виду Iris")
+#ggplot(iris, aes(x=Petal.Length, y=Petal.Width, color=Species)) +
+#  geom_point() +
+#  labs(title="Розподіл довжини та ширини пелюсток для кожного виду Iris")
 
 
 #--------------------------2--------------------------------------
@@ -49,7 +49,7 @@ p + geom_hline(yintercept = mean_value, linetype = "dashed", color = "blue")
 
 #--------------------------4--------------------------------------
 # Створення вектора
-vector_result <- ifelse(sepal_length > mean_value, 1, 
+vector_result <- ifelse(sepal_length > mean_value, 1,
                         ifelse(sepal_length < mean_value, -1, 0))
 
 # Виведення вектора
